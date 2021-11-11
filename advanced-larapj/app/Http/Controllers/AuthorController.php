@@ -6,13 +6,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Author;
 use App\Http\Requests\AuthorRequest;
+use Illuminate\Support\Facades\Auth;
+
 
 class AuthorController extends Controller
 {
     //select author
     public function index(){
         $items = Author::Paginate(4);
-        return view("index",["items" => $items]);
+        $user = Auth::user();
+        $param = [
+            "items" => $items,
+            "user" => $user
+        ];
+        return view("index",$param);
     }
 
     //add author
@@ -99,6 +106,39 @@ class AuthorController extends Controller
 
         return view("author.index",$date);
     }
+
+    //check user
+    public function check(Request $request)
+    {
+        $param = [
+            "text" => "ログインしてください"
+        ];
+
+        return view("auth",$param);
+    }
+
+    //ログイン処理の確認 :get auth
+    public function checkUser(Request $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+
+        //ログイン処理の実装 :post auth
+        if(Auth::attempt([
+                "email" => $email,
+                "password" => $password
+                ]
+            )){
+            $user = Auth::user();
+            $text = Auth::user()->name."ログインに成功しました。";
+            }else{
+                $text = "ログインに失敗しました。";
+            }
+
+        // return view("auth",["text" => $text,"user" => $user]);
+        return redirect("home");
+    }
+
 
 }
 
