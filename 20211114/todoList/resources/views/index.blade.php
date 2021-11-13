@@ -11,10 +11,22 @@
     <body>
         <div class="main">
             <p class="title">Todo List</p>
-            <form action="" method="POST" class="main__add--form">
-                <input type="text" name="input-add" class="input-add">
+            @if ($errors->any())
+                <ul>
+                    @forelse ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                    @empty
+
+                    @endforelse
+                </ul>
+            @endif
+
+            <form action="/todo/create" method="POST" class="main__add--form">
+                @csrf
+                <input type="text" name="content" class="input-add">
                 <input type="submit" value="追加" class="submit-add">
             </form>
+
             <table>
                 <tr>
                     <div class="wrapper--tr">
@@ -24,24 +36,28 @@
                         <th>削除</th>
                     </div>
                 </tr>
-                <tr>
-                    <td>laravelの値-created_at</td>
-                    <form action="" method="POST">
-                        <td>
-                            <input type="text" value="laravelの値-content" class="input-update">
-                        </td>
-                        <td>
-                            <input type="submit" value="更新" class="submit-update">
-                            <input type="hidden" name="" id="">
-                        </td>
-                    </form>
-                    <form action="" method="POST">
-                        <td>
-                            <input type="submit" value="削除" class="submit-delete">
-                            <input type="hidden" name="" id="">
-                        </td>
-                    </form>
-                </tr>
+                @forelse ($todos as $todo)
+                    <tr>
+                        <td>{{$todo->created_at}}</td>
+                        <form action="/todo/update?id={{$todo->id}}" method="POST">
+                            @csrf
+                            <td>
+                                <input type="text" name="content" value="{{$todo->content}}" class="input-update">
+                            </td>
+                            <td>
+                                <input type="submit" value="更新" class="submit-update">
+                            </td>
+                        </form>
+                        <form action="/todo/delete?id={{$todo->id}}" method="POST">
+                            @csrf
+                            <td>
+                                <input type="submit" value="削除" class="submit-delete">
+                            </td>
+                        </form>
+                    </tr>
+                @empty
+
+                @endforelse
             </table>
         </div>
     </body>
