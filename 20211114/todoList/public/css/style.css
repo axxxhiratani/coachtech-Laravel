@@ -1,14 +1,19 @@
 body{
     background-color: #000080;
-    width: 100%;
 }
+
 
 .main{
     background-color: aliceblue;
-    margin: 25% auto;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    display: block;
     width: 70%;
     padding: 20px 40px;
-    display: block;
     border-radius: 10px;
 }
 
