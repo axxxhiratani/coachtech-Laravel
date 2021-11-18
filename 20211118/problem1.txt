@@ -1,0 +1,12 @@
+問題1
+
+①PHP
+②Model
+③View
+④Controller
+⑤Httpメソッド
+⑥GET
+⑦POST
+⑧PUT
+⑨ルーティング
+⑩blade
