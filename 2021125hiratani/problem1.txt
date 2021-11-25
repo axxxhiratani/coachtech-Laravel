@@ -1,0 +1,11 @@
+問題1
+
+①ORM
+②Eloquent
+③Model
+④Create
+⑤Read
+⑥Update
+⑦.env
+⑧マイグレーション
+⑨ファクトリー

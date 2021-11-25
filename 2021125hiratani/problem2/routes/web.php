@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\InfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,27 @@ use App\Http\Controllers\MainController;
 |
 */
 
+/**
+ *
+ * 今回の課題
+ */
+
+Route::get("/",function(){
+    return view("index");
+});
+Route::post("/info",[InfoController::class,"store"]);
 
 
+
+
+
+/**
+ *
+ * 前回の課題
+ */
 Route::prefix("building")->group(function(){
     Route::get("/",[MainController::class,"showBuilding"]);
     Route::get("/{room}",[MainController::class,"showRoom"]);
 });
+
+
